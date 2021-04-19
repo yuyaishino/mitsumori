@@ -1,0 +1,125 @@
+/*印刷時A4サイズ*/
+div.printpage4{
+    width: 210mm;
+    height: 320mm; /* */
+    /*width: 172mm;
+    height: 251mm;/**/
+    border: solid 1px black;		
+    margin:0px auto;
+    background-color: #FFF;
+}
+
+/*日付*/
+table.hinichi{
+    margin-top: 5%;
+    margin-left: 68%;
+    font-size: 13px;
+}
+
+/*宛先*/
+div.atesaki{
+    margin-left: 12%;
+}
+
+div.kaisya{
+    float: left;
+    border-bottom: 1px solid black;
+}
+
+
+div.onchu{
+    float: left;
+    border-bottom: 1px solid black;
+}
+
+/*自社*/
+div.jisyaBox{
+    position: relative;
+    text-align: right;
+    margin-top: 4%;
+    margin-right: 12%;
+    font-size: 13px;
+    line-height: 3px;
+    z-index: 1;
+}
+
+/*作業実績報告書兼確認書*/
+h3{
+    text-align: center;
+    text-decoration:underline;
+}
+
+/*挨拶*/
+div.aisatsu{
+    margin-left: 20%;
+    font-size: 13px;
+}
+
+/*明細部分*/        
+p.meisaititle{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 8%;
+    font-size: 14px;
+}
+
+div.meisaibubun{
+    height: 60%;
+    width: 84%;
+    /*                border : 1px solid black;*/
+    font-size: 11px;
+}
+
+table.sagyoumeisai{
+    font-size: 11px;
+    margin-right: 70%;
+    margin-bottom: -2%;
+}
+
+table.meisaibubun{		
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+div.kakunin{
+    margin-left: 2%;
+}
+
+table.kakunin{
+    font-size: 11px;
+    margin-right: 70%;
+}
+
+hr{
+    margin-top: 4%;
+    margin-left: 30%;
+    float: left;
+}
+
+p.inn{
+    float: left;
+    margin-left: 2%;
+}
+
+/**背景色**/
+tr.color{
+    background-color: #C0C0C0;
+}
+td.color{
+    background-color: #C0C0C0;
+}
+tr.backcolor{
+    background-color: #fff;
+}
+td.backcolor{
+    background-color: #fff;
+}
+
+/**画像**/
+.resultpng{
+    width: 19%;
+    position: absolute;
+    top: -25px;
+    left: 84%;
+    z-index: -1;
+}

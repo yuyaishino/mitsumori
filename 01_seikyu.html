@@ -1,0 +1,567 @@
+<html><head><title>請求情報印刷</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all">
+                        <link rel="icon" type="image/png" href="./image/favicon.ico">
+			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css">
+			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+			<link rel="stylesheet" href="./jquery.datetimepicker.css">
+			<link rel="stylesheet" href="./MonthPicker.css"><link rel="stylesheet" type="text/css" href="./list_css.css"><link rel="stylesheet" type="text/css" href="./display.css"><link rel="stylesheet" type="text/css" href="./stamp.css"><link rel="stylesheet" type="text/css" href="./print.css" media="print"><!---↓jQuery--->
+			<script src="./jquery.js"></script>
+			<script src="./jquery.datetimepicker.full.min.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+			<script src="./MonthPicker.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/i18n/jquery.spectrum-ja.min.js"></script>
+			<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+			<!---↑jQuery--->
+
+			<script src="./generate_date.js"></script>
+			<script src="./pulldown.js"></script>
+			<script src="./jquery.corner.js"></script>
+                        			<script src="./inputcheck.js"></script>
+			<script src="./list_jQuery.js"></script>
+			<script src="./tabscript.js"></script>
+			<script src="./hm_hinmoku.js"></script><script src="./js/tabscript.js"></script><script language="JavaScript"><!--
+			$(function()
+			{
+				pageLoad();
+				tabClick();
+			});
+			--></script></head><body style=""><div class="titlebox" id="print"><div class="main_title"><h1>見積・請求システム</h1><div class="tantomei">担当:マーキュリー</div></div><div class="mlogo"><img src="./image/mlogo.png" class="logo"></div></div><div class="pkg_contents" id="print"><div class="main_menu"><div id="contents" class="content"><ul class="nav"><li><a href="main.php?TOP_5">TOP</a></li><li class="sub-menu"><a href="#">案件情報</a><ul><li><a href="main.php?ANKENINFO_1_button=%E6%A1%88%E4%BB%B6%E6%83%85%E5%A0%B1%E7%99%BB%E9%8C%B2">案件情報登録</a></li>
+<li><a href="main.php?ANKENINFO_2_button=%E6%A1%88%E4%BB%B6%E4%B8%80%E8%A6%A7">案件一覧</a></li>
+<li><a href="main.php?MITSUMORIINFO_1_button=%E8%A6%8B%E7%A9%8D%E3%82%8A%E6%9B%B8%E7%99%BB%E9%8C%B2">見積り書登録</a></li>
+</ul></li><li class="sub-menu"><a href="#">データ参照</a><ul><li><a href="main.php?MISEIKYUINFO_2_button=%E6%9C%AA%E8%AB%8B%E6%B1%82%E6%83%85%E5%A0%B1">未請求情報</a></li>
+<li><a href="main.php?MINYUKININFO_2_button=%E6%9C%AA%E5%85%A5%E9%87%91%E6%83%85%E5%A0%B1">未入金情報</a></li>
+<li><a href="main.php?URIAGEPRINT_6_button=%E5%A3%B2%E4%B8%8A%E7%AE%A1%E7%90%86%E8%A1%A8">売上管理表</a></li>
+<li><a href="main.php?NYUKINPRINT_6_button=%E5%85%A5%E9%87%91%E7%AE%A1%E7%90%86%E8%A1%A8">入金管理表</a></li>
+</ul></li><li class="sub-menu"><a href="#">マスタ管理</a><ul><li><a href="main.php?JISYAMASTER_3_button=%E8%87%AA%E7%A4%BE%E3%83%9E%E3%82%B9%E3%82%BF">自社マスタ</a></li>
+<li><a href="main.php?USERMASTER_2_button=%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%9E%E3%82%B9%E3%82%BF">ユーザーマスタ</a></li>
+<li><a href="main.php?KOKYAKUMASTER_2_button=%E9%A1%A7%E5%AE%A2%E3%83%9E%E3%82%B9%E3%82%BF">顧客マスタ</a></li>
+<li><a href="main.php?HINMOKUMASTER_2_button=%E8%A6%8B%E7%A9%8D%E6%98%8E%E7%B4%B0%E3%83%9E%E3%82%B9%E3%82%BF">見積明細マスタ</a></li>
+</ul></li><li class="sub-menu"><a href="#">システム情報</a><ul><li><a href="main.php?SOUSALIST_2_button=%E6%93%8D%E4%BD%9C%E5%B1%A5%E6%AD%B4">操作履歴</a></li>
+<li><a href="main.php?RIREKIDEL_6_button=%E5%B1%A5%E6%AD%B4%E3%83%87%E3%83%BC%E3%82%BF%E5%89%8A%E9%99%A4">履歴データ削除</a></li>
+</ul></li><li><a href="login.php">ログアウト</a></li><!--nav--></ul></div></div></div>
+        
+       <div class="printpage">
+	<div class="firstDateBox">
+		<table class="date">
+			<tbody>
+				<tr>
+					<td>日付:</td>
+					<td>2020年07月03日</td>
+				</tr>
+				<tr>
+					<td>請求書 No:</td>
+					<td>(auto)</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>請求書</h2>
+	<div>
+		<div class="kigyo"><span>株式会社テスト</span></div>
+		<div class="kotei"><span>御中</span></div>
+	</div>
+	<div id="hanko" class="hanko"><img src="./image/mercury.png" class="png"></div>
+	<div class="box">
+		<div class="goukeibox"><span>下記の通りお見積り申し上げます。</span>
+			<div class="kingaku">金額計(税込)　　　¥ 1,100</div>
+			<div class="kigen">お支払期限　　　 2020年7月3日</div>
+			<div class="messege">交通費等は別途、実費を申し受けます。</div>
+		</div>
+		<div class="addressBox">
+			<p class="name">マーキュリーソフト株式会社</p>
+			<p class="address">〒4600026<br>愛知県名古屋市中区伊勢山2丁目8-21<br>NKC BLDG.4F<br>TEL：052-323-8050 FAX：052-323-8050</p>
+			<p class="tantousya">担当者：マーキュリー </p>
+		</div>
+	</div>
+	<div class="meiaibox">
+		<table class="meisai" border="1" align="center">
+			<tbody>
+				<tr class="color">
+					<td width="300" align="center">品名</td>
+					<td width="120" align="center">単価</td>
+					<td width="120" align="center">数量</td>
+					<td width="120" align="center">金額</td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　バイク</td>
+					<td align="right">¥ 1,000</td>
+					<td align="center">1kg</td>
+					<td align="right">¥ 1,000</td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table border="1" align="center" class="goukei">
+			<tbody>
+				<tr class="frame">
+					<td height="30" align="center" class="color">小計</td>
+					<td class="backcolor" align="right">¥ 1,000</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">消費税（8％）</td>
+					<td class="backcolor" align="right">¥ 0</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">消費税（10％）</td>
+					<td class="backcolor" align="right">¥ 100</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">総合計</td>
+					<td class="backcolor" align="right">¥ 1,100</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="goannaiBox">
+		<p>お振込のご案内<br> お手数ですが下記口座へお振込願います。<br> (三菱UFJ銀行　金山支店　普通　3764803)</p>
+	</div>
+<!--	<div class="kaishahanko">
+		<table class="inkan" border="1" align="right">
+			<tbody>
+				<tr>
+					<td width="80" align="center">承認</td>
+					<td width="80" align="center">審査</td>
+					<td width="80" align="center">担当</td>
+				</tr>
+				<tr>
+					<td height="80">
+						<div class="stamp stamp-approve"><span>2020.7.3</span><span>MCS</span></div>
+					</td>
+					<td></td>
+					<td>
+						<div class="stamp stamp-write"><span>2020.7.3</span><span>MCS</span></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>-->
+</div>
+<div id="print" class="print"><label><input type="checkbox" id="copy" checked=""><span class="checkbox">控</span></label><br><label><input type="checkbox" id="delively"><span class="checkbox">納品書</span></label><br><input type="button" value="印刷" id="print" class="print" onclick="window.print()"></div>
+<div id="copyprint" class="printpage2">
+	<div id="secondDateBox" class="secondDateBox">
+		<table class="date">
+			<tbody>
+				<tr>
+					<td>日付:</td>
+					<td>2020年07月03日</td>
+				</tr>
+				<tr>
+					<td>請求書 No:</td>
+					<td>(auto)</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>請求書</h2>
+	<p class="hikae">（控）</p>
+	<div>
+		<div class="kigyo"><span>株式会社テスト</span></div>
+		<div class="kotei"><span>御中</span></div>
+	</div>
+	<div id="hanko2" class="hanko2"><img src="./image/mercury.png" class="png"></div>
+	<div class="box">
+		<div class="goukeibox"><span>下記の通りお見積り申し上げます。</span>
+			<div class="kingaku">金額計(税込)　　　¥ 1,100</div>
+			<div class="kigen">お支払期限　　　 2020年7月3日</div>
+			<div class="messege">交通費等は別途、実費を申し受けます。</div>
+		</div>
+		<div class="addressBox">
+			<p class="name">マーキュリーソフト株式会社</p>
+			<p class="address">〒4600026<br>愛知県名古屋市中区伊勢山2丁目8-21<br>NKC BLDG.4F<br>TEL：052-323-8050 FAX：052-323-8050</p>
+			<p class="tantousya">担当者：マーキュリー </p>
+		</div>
+	</div>
+	<div class="meiaibox">
+		<table class="meisai" border="1" align="center">
+			<tbody>
+				<tr class="color">
+					<td width="300" align="center">品名</td>
+					<td width="120" align="center">単価</td>
+					<td width="120" align="center">数量</td>
+					<td width="120" align="center">金額</td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　バイク</td>
+					<td align="right">¥ 1,000</td>
+					<td align="center">1kg</td>
+					<td align="right">¥ 1,000</td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table border="1" align="center" class="goukei">
+			<tbody>
+				<tr class="frame">
+					<td height="30" align="center" class="color">小計</td>
+					<td class="backcolor" align="right">¥ 1,000</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">消費税（8％）</td>
+					<td class="backcolor" align="right">¥ 0</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">消費税（10％）</td>
+					<td class="backcolor" align="right">¥ 100</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">総合計</td>
+					<td class="backcolor" align="right">¥ 1,100</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="goannaiBox">
+		<p>お振込のご案内<br> お手数ですが下記口座へお振込願います。<br> (三菱UFJ銀行　金山支店　普通　3764803)</p>
+	</div>
+	<div class="kaishahanko">
+		<table class="inkan" border="1" align="right">
+			<tbody>
+				<tr>
+					<td width="80" align="center">承認</td>
+					<td width="80" align="center">審査</td>
+					<td width="80" align="center">担当</td>
+				</tr>
+				<tr>
+					<td height="80">
+						<div class="stamp stamp-approve"><span>2020.7.3</span><span>MCS</span></div>
+					</td>
+					<td></td>
+					<td>
+						<div class="stamp stamp-write"><span>2020.7.3</span><span>MCS</span></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="delivelyprint" class="printpage3 dispNone">
+	<div id="thirdDateBox" class="thirdDateBox">
+		<table class="date">
+			<tbody>
+				<tr>
+					<td>日付:</td>
+					<td>2020年07月03日</td>
+				</tr>
+				<tr>
+					<td>納品書 No:</td>
+					<td>(auto)</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2>納品書</h2>
+	<div>
+		<div class="kigyo"><span>株式会社テスト</span></div>
+		<div class="kotei"><span>御中</span></div>
+	</div>
+	<div id="hanko3" class="hanko3"><img src="./image/mercury.png" class="png"></div>
+	<div class="box">
+		<div class="goukeibox"><span>下記の通りお見積り申し上げます。</span>
+			<div class="kingaku">金額計(税込)　　　¥ 1,100</div>
+		</div>
+		<div class="addressBox">
+			<p class="name">マーキュリーソフト株式会社</p>
+			<p class="address">〒4600026<br>愛知県名古屋市中区伊勢山2丁目8-21<br>NKC BLDG.4F<br>TEL：052-323-8050 FAX：052-323-8050</p>
+			<p class="tantousya">担当者：マーキュリー </p>
+		</div>
+	</div>
+	<div class="meiaibox">
+		<table class="meisai" border="1" align="center">
+			<tbody>
+				<tr class="color">
+					<td width="300" align="center">品名</td>
+					<td width="120" align="center">単価</td>
+					<td width="120" align="center">数量</td>
+					<td width="120" align="center">金額</td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　バイク</td>
+					<td align="right">¥ 1,000</td>
+					<td align="center">1kg</td>
+					<td align="right">¥ 1,000</td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="color">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+				<tr class="backcolor">
+					<td height="27" align="left">　</td>
+					<td align="right"></td>
+					<td align="center"></td>
+					<td align="right"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table border="1" align="center" class="goukei">
+			<tbody>
+				<tr class="frame">
+					<td height="30" align="center" class="color">小計</td>
+					<td class="backcolor" align="right">¥ 1,000</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">消費税（8％）</td>
+					<td class="backcolor" align="right">¥ 0</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">消費税（10％）</td>
+					<td class="backcolor" align="right">¥ 100</td>
+				</tr>
+				<tr class="frame">
+					<td height="30" align="center" class="color">総合計</td>
+					<td class="backcolor" align="right">¥ 1,100</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="bikouBox"></div>
+    
+    
+    
+    <script language="JavaScript"> $("#contents .sub-menu > a").click(function (e) {
+					$("#contents ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(),
+					e.stopPropagation();
+				});function makeDatepicker()
+			{}
+				</script>
+</div></body></html>

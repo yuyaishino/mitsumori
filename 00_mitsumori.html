@@ -1,0 +1,231 @@
+<html><head><title>見積印刷</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all">
+                        <link rel="icon" type="image/png" href="./image/favicon.ico">
+			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css">
+			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+			<link rel="stylesheet" href="./jquery.datetimepicker.css">
+			<link rel="stylesheet" href="./MonthPicker.css"><link rel="stylesheet" type="text/css" href="./list_css.css"><link rel="stylesheet" type="text/css" href="./display.css"><link rel="stylesheet" type="text/css" href="./stamp.css"><link rel="stylesheet" type="text/css" href="./workresult.css"><link rel="stylesheet" type="text/css" href="./print.css" media="print"><!---↓jQuery--->
+			<script src="./jquery.js"></script>
+			<script src="./jquery.datetimepicker.full.min.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+			<script src="./MonthPicker.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/i18n/jquery.spectrum-ja.min.js"></script>
+			<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+			<!---↑jQuery--->
+
+			<script src="./generate_date.js"></script>
+			<script src="./pulldown.js"></script>
+			<script src="./jquery.corner.js"></script>
+                        			<script src="./inputcheck.js"></script>
+			<script src="./list_jQuery.js"></script>
+			<script src="./tabscript.js"></script>
+			<script src="./hm_hinmoku.js"></script><script src="./js/tabscript.js"></script><script language="JavaScript"><!--
+			$(function()
+			{
+				pageLoad();
+				tabClick();
+			});
+			--></script></head><body style=""><div class="titlebox" id="print"><div class="main_title"><h1>見積・請求システム</h1><div class="tantomei">担当:マーキュリー</div></div><div class="mlogo"><img src="./image/mlogo.png" class="logo"></div></div><div class="pkg_contents" id="print"><div class="main_menu"><div id="contents" class="content"><ul class="nav"><li><a href="main.php?TOP_5">TOP</a></li><li class="sub-menu"><a href="#">案件情報</a><ul><li><a href="main.php?ANKENINFO_1_button=%E6%A1%88%E4%BB%B6%E6%83%85%E5%A0%B1%E7%99%BB%E9%8C%B2">案件情報登録</a></li>
+<li><a href="main.php?ANKENINFO_2_button=%E6%A1%88%E4%BB%B6%E4%B8%80%E8%A6%A7">案件一覧</a></li>
+<li><a href="main.php?MITSUMORIINFO_1_button=%E8%A6%8B%E7%A9%8D%E3%82%8A%E6%9B%B8%E7%99%BB%E9%8C%B2">見積り書登録</a></li>
+</ul></li><li class="sub-menu"><a href="#">データ参照</a><ul><li><a href="main.php?MISEIKYUINFO_2_button=%E6%9C%AA%E8%AB%8B%E6%B1%82%E6%83%85%E5%A0%B1">未請求情報</a></li>
+<li><a href="main.php?MINYUKININFO_2_button=%E6%9C%AA%E5%85%A5%E9%87%91%E6%83%85%E5%A0%B1">未入金情報</a></li>
+<li><a href="main.php?URIAGEPRINT_6_button=%E5%A3%B2%E4%B8%8A%E7%AE%A1%E7%90%86%E8%A1%A8">売上管理表</a></li>
+<li><a href="main.php?NYUKINPRINT_6_button=%E5%85%A5%E9%87%91%E7%AE%A1%E7%90%86%E8%A1%A8">入金管理表</a></li>
+</ul></li><li class="sub-menu"><a href="#">マスタ管理</a><ul><li><a href="main.php?JISYAMASTER_3_button=%E8%87%AA%E7%A4%BE%E3%83%9E%E3%82%B9%E3%82%BF">自社マスタ</a></li>
+<li><a href="main.php?USERMASTER_2_button=%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%9E%E3%82%B9%E3%82%BF">ユーザーマスタ</a></li>
+<li><a href="main.php?KOKYAKUMASTER_2_button=%E9%A1%A7%E5%AE%A2%E3%83%9E%E3%82%B9%E3%82%BF">顧客マスタ</a></li>
+<li><a href="main.php?HINMOKUMASTER_2_button=%E8%A6%8B%E7%A9%8D%E6%98%8E%E7%B4%B0%E3%83%9E%E3%82%B9%E3%82%BF">見積明細マスタ</a></li>
+</ul></li><li class="sub-menu"><a href="#">システム情報</a><ul><li><a href="main.php?SOUSALIST_2_button=%E6%93%8D%E4%BD%9C%E5%B1%A5%E6%AD%B4">操作履歴</a></li>
+<li><a href="main.php?RIREKIDEL_6_button=%E5%B1%A5%E6%AD%B4%E3%83%87%E3%83%BC%E3%82%BF%E5%89%8A%E9%99%A4">履歴データ削除</a></li>
+</ul></li><li><a href="login.php">ログアウト</a></li><!--nav--></ul></div></div></div>
+                            
+                            
+                            
+<div id="printConfirm" class="printpage4">
+  <table class="hinichi">
+    <tbody>
+      <tr>
+        <td>2020年07月08日</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="atesaki">
+    <div class="kaisya"><span>&thinsp; 株式会社テスト</span></div>
+    <div class="onchu"><span>&emsp; 御中 &emsp; </span></div>
+  </div>
+  <div class="jisyaBox">
+    <p>マーキュリーソフト株式会社</p>
+    <p>代表取締役　名倉　充</p>
+    <img src='./image/newHANKO.png' class='png'>
+  </div>
+<!--  <img src='./image/newHANKO.png' class='png'>-->
+  <h3>作業実績報告書兼確認書</h3>
+  <div class="aisatsu"><span>&thinsp; 平素は格別のご高配に預かり、厚く御礼申し上げます。ご下命を賜っております<br>下記の弊社作業が終了した事をご報告いたしますので、ご確認願います。</span></div><br>
+  <p class="meisaititle">作業実績報告</p>
+  <center>
+    <div class="meisaibubun">
+      <table class="sagyoumeisai">
+        <tbody>
+          <tr>
+            <td>作業形態</td>
+            <td>：</td>
+            <td>請負</td>
+          </tr>
+          <tr>
+            <td>作業終了日</td>
+            <td>：</td>
+            <td>2020年07月08日</td>
+          </tr>
+        </tbody>
+      </table><br>
+      <table class="meisaibubun" border="1" align="center">
+        <tbody>
+          <tr class="color">
+            <td width="300" align="center">品名</td>
+            <td width="120" align="center">単価</td>
+            <td width="120" align="center">数量</td>
+            <td width="120" align="center">金額</td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　バイク</td>
+            <td align="right">¥ 1,000</td>
+            <td align="center">1kg</td>
+            <td align="right">¥ 1,000</td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="color">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+          <tr class="backcolor">
+            <td height="27" align="left">　</td>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td align="right"></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="frame">
+            <td colspan="3" height="30" align="center" class="color">売上額（税抜き）</td>
+            <td class="backcolor" align="right">¥ 1,000</td>
+          </tr>
+          <tr class="frame">
+            <td colspan="3" height="30" align="center" class="color">消費税（8％）</td>
+            <td class="backcolor" align="right">¥ 0</td>
+          </tr>
+          <tr class="frame">
+            <td colspan="3" height="30" align="center" class="color">消費税（10％）</td>
+            <td class="backcolor" align="right">¥ 100</td>
+          </tr>
+          <tr class="frame">
+            <td colspan="3" height="30" align="center" class="color">売上額（税込）合計</td>
+            <td class="backcolor" align="right">¥ 1,100</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="kakunin">
+        <p align="left">作業実績確認</p>
+        <table class="kakunin">
+          <tbody>
+            <tr>
+              <td>確認日</td>
+              <td>：</td>
+              <td>　　　　　年　　　月　　　日</td>
+            </tr>
+            <tr>
+              <td>確認者</td>
+              <td>：</td>
+              <td>株式会社テスト</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr size="1px" width="50%" color="black">
+        <p class="inn">印</p>
+      </div>
+    </div>
+  </center>
+</div>
+                            
+                                                
+                                                <script language="JavaScript"> $("#contents .sub-menu > a").click(function (e) {
+					$("#contents ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(),
+					e.stopPropagation();
+				});function makeDatepicker()
+			{}
+				</script>
+</body></html>

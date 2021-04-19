@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="sample.css" media="all">
+    </head>
+    <body>
+<script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            var testArray = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby", "python", "c", "scala", "groovy", "haskell", "perl"];
+            var myReader = new wijarrayreader([{ name: 'label' }, { name: 'value' }, { name: 'selected', defaultValue: false}]);
+            var datasourceOptions = {
+                reader: myReader,
+                data: testArray
+            };
+            var datasource = new wijdatasource({
+                reader: myReader,
+                data: testArray
+            });
+            $("#tags").wijcombobox({
+                data: datasource,
+                width: 150
+            });
+            $('.position').bind('change', changed);
+        });
+        function changed() {
+            $("#tags").wijcombobox('option', 'dropDownListPosition', {
+                my: $('#my_horizontal').val() + ' ' + $('#my_vertical').val(),
+                at: $('#at_horizontal').val() + ' ' + $('#at_vertical').val(),
+                offset: $('#offset').val(),
+                collision: $("#collision_horizontal").val() + ' ' + $("#collision_vertical").val()
+            });
+        }
+    </script>
+<div class="main demo">
+    <!-- デモマークアップの開始 -->
+    <div>
+        <input id="tags" />
+    </div>
+    <!-- デモマークアップの終了 -->
+    <div class="demo-options">
+        <!-- オプションマークアップの開始 -->
+        <div class="option-row">
+            <label for="my_horizontal">
+                Dropdown list:</label>
+            <select id="my_horizontal" class="position">
+                <option value="left">left</option>
+                <option value="center">center</option>
+                <option value="right">right</option>
+            </select>
+            <select id="my_vertical" class="position">
+                <option value="top">top</option>
+                <option value="middle">center</option>
+                <option value="bottom">bottom</option>
+            </select>
+        </div>
+        <div class="option-row">
+            <label for="at_horizontal">
+                Aligns to textbox:</label>
+            <select id="at_horizontal" class="position">
+                <option value="left">left</option>
+                <option value="center">center</option>
+                <option value="right">right</option>
+            </select>
+            <select id="at_vertical" class="position">
+                <option value="top">top</option>
+                <option value="middle">center</option>
+                <option value="bottom">bottom</option>
+            </select>
+        </div>
+        <div class="option-row">
+            <label for="offset">
+                With offset:</label>
+            <input onblur="changed()" id="offset" type="text" size="15" />
+        </div>
+        <div class="option-row">
+            <label for="collision_horizontal">
+                Horizontal collision detection:</label>
+            <select id="collision_horizontal">
+                <option value="flip">flip</option>
+                <option value="fit">fit</option>
+                <option value="none">none</option>
+            </select>
+            <label for="collision_vertical">
+                Vertical collision detection:</label>
+            <select id="collision_vertical">
+                <option value="flip">flip</option>
+                <option value="fit">fit</option>
+                <option value="none">none</option>
+            </select>
+        </div>
+        <!-- オプションマークアップの終了 -->
+    </div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,9 @@
+
+table.list,table.mail,table.label
+{
+	border: 2px #000000 solid;
+	border-collapse: collapse;
+	width: auto;
+	font-size: 8pt;
+	margin: auto;
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=shift_jis" />
+    <title>フォームのサンプル</title>
+<link type="text/css" rel="stylesheet"
+  href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+<script type="text/javascript"
+  src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript"
+  src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<script src="encoding/encoding.min.js" ></script>
+<script language="JavaScript"><!--
+  
+    function testAjax()
+	{
+	
+    };
+  
+    // 文字列を配列に変換
+    var str2array = function(str) {
+        var array = [],i,il=str.length;
+        for(i=0;i<il;i++) array.push(str.charCodeAt(i));
+        return array;
+    };
+ 
+    $(function(){
+        // 初期
+        updateAutocomplete('#gencode','USR');
+
+	});
+	
+		function updateAutocomplete(ctrlname,identifier)
+		{
+			var ctrl_name_show = ctrlname+"_show";
+			
+			$(ctrl_name_show).autocomplete(
+			{
+				source    : function(request, response){
+					$.ajax(
+					{
+						url: 'json.php',
+						scriptCharset: 'utf-8',
+						type: 'GET',
+						data:{
+								key:$(ctrlname).val(),
+								search:$(ctrl_name_show).val(),
+								table_id: identifier								
+							 },
+						dataType: 'json',
+						timeout: 5000,
+						cache: false,
+
+						success: function(data)
+						{
+							var dataArray = data.results;
+							var arrayData =[];
+							var counter = 0;
+
+							$.each(dataArray, function(i)
+							{
+								if(i==0){
+									$(".nameData").append("<p>CODE: " + dataArray[i].CODE + "　VALUE: " + dataArray[i].VALUE + "　　(LABEL: " + dataArray[i].LABEL + ")</p>");
+								}
+								var hashData = {};
+								hashData['label'] = dataArray[i].LABEL;
+								hashData['value'] = dataArray[i].VALUE;
+								hashData['code'] = dataArray[i].KEY;
+
+								arrayData[counter] = hashData;
+								counter++;
+							});
+							
+							response(arrayData);
+
+						}
+
+					});
+				},
+				autoFocus : true,
+				delay     : 100,
+				minLength : 0,
+				select : function(e, ui)
+				{
+					if(ui.item)
+					{
+						var _CODE = ui.item.code;
+						$(ctrlname).val(_CODE);
+					}
+				}
+			}).focus(function() {
+				$(this).autocomplete('search', '');
+			});
+			
+		}
+--></script>
+  </head>
+  <body>
+    <form action="receive.php" method="post">
+    <p>
+        <input id="gencode" type="text" onblur="" /><br />
+        <input id="gencode_show" type="text" onkeyup="" /><br />
+    <input type="submit" name="button_send" value="送信" />
+    </p>
+</form>
+
+ <div class="nameData">
+</div>
+
+ 
+  </body>
+</html>

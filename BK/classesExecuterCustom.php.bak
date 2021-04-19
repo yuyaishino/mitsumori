@@ -1,0 +1,533 @@
+<?php
+require_once("classesPageContainer.php");
+require_once("classesBase.php");
+require_once("classesHtml.php");
+require_once("classesPageFactory.php");
+require_once("classesExecute.php");
+require_once("f_DB.php");
+
+/**
+ * ステータスの更新クラス
+ * 
+ */
+class StatusUpdate extends BaseLogicExecuter
+{
+	/**
+	 * executeSQL
+	 * ステータス更新
+	 */
+	public function executeSQL()
+	{
+		//DB接続、トランザクション開始
+		$con = beginTransaction();
+		
+		$judge = false;
+		$edit = $this->prContainer->pbInputContent;
+		//$tablenum = $this->prFormIni['use_maintable_num'];
+		$tablenum = $this->prContainer->pbPageSetting['use_maintable_num'];
+		//$listid = $_SESSION['list']['id'];
+		if(isset($_SESSION['list']['uniqe']))
+		{
+			$edit['uniqe'] = $_SESSION['list']['uniqe'];
+		}
+			
+		$edit[$tablenum.'ID'] = $edit['edit_list_id'];
+			
+		$result = update($this->prContainer->pbFileName, $edit,$con);
+		
+		//ステータス変更時引き合い、見積の場合
+		if(intval($this->prContainer->pbInputContent['form_ankSTATUS_0']) < 3)
+		{
+			$updateid = $this->prContainer->pbListId;
+			$sql = "UPDATE mitsumoriinfo SET SAIYO = '0' WHERE ANKID = $updateid;";
+			$result = $con->query($sql) or ($judge = true);																		// クエリ発行
+			if($judge)
+			{
+				error_log($con->error,0);
+				$judge =false;
+			}
+		}
+		
+		//ステータスが受注時見積が選択されている場合
+		if(isset($this->prContainer->pbInputContent['frmSAIYO']))
+		{
+			$updateid = $this->prContainer->pbInputContent['frmSAIYO'];
+			
+			$sql = "UPDATE mitsumoriinfo SET SAIYO = '1' WHERE MMHID = $updateid;";
+			$result = $con->query($sql) or ($judge = true);																		// クエリ発行
+			if($judge)
+			{
+				error_log($con->error,0);
+				$judge =false;
+			}
+		}
+
+		//トランザクションコミットまたはロールバック
+		commitTransaction($result,$con);
+		
+		//指定ページへ遷移
+		$this->PageJump("ANKENSHOW_1_button", $edit['edit_list_id'], 2,"","");
+	}
+	
+}
+
+/**
+ * 見積コピー登録値取得
+ * 
+ */
+class CopyExecuter extends BaseLogicExecuter
+{
+	/**
+	 * 見積のデータを取得し案件コードを変更する
+	 * 
+	 */
+	public function executeSQL()
+	{
+		$list_id = $this->prContainer->pbListId;
+		
+		$insert_code = "";
+		$content = "";
+		$blankcolumns = $this->prContainer->pbPageSetting['page_columns'];
+		$blankcolumns_array = explode(',',$blankcolumns);
+		$history = $_SESSION['history'];
+		
+		//見積,案件,請求のデータ取り出し
+		$content = make_post("",$list_id);
+		
+		//値をブランクにする
+		for($i = 0 ; $i < count($blankcolumns_array) ; $i++)
+		{
+			$column = $blankcolumns_array[$i];
+			$fild_column = $this->prContainer->pbFormIni[$column]['column'];
+			
+			$serch = "form_".$blankcolumns_array[$i]."_0";
+			if(!isset($content[$serch]))
+			{
+				$serch = $fild_column;
+				$content[$serch] = "";
+				continue;
+			}
+				
+			$content[$serch] = "";
+		}
+		//----------見積コピー時----------//
+		if($this->prContainer->pbFileName == "MITSUMORICOPY_9")
+		{
+			//案件コード保持
+			//関数makeTabHtmlで作成されたANKCODEを使用
+			/*if(isset($_SESSION['ANKID']))
+			{
+				$insert_code = $_SESSION['ANKID'];
+				unset($_SESSION['ANKID']);
+			}*/
+			if(isset($this->prContainer->pbInputContent['ANKID']))
+			{
+				$insert_code = $this->prContainer->pbInputContent['ANKID'];
+			}	
+			
+			if($insert_code != "")
+			{
+				$content['form_mmhANKID_0'] = $insert_code;
+			}
+			
+			$count = count($history);
+			$content_array = array_keys($content);
+			for($i = $count; $i >= 0 ; $i-- )
+			{
+				//請求登録から見積コピーの場合
+				if($history[$i] == "SEIKYUINFO_1")
+				{
+					foreach ($content_array as $key)
+					{
+						$str = str_replace("mm", "se", $key);
+						$newcontent[$str] = $content[$key];
+					}
+					//明細値取得
+					$content = make_headerpost("MITSUMORIINFO_1_M", $list_id, "mmh");
+					$content_array = array_keys($content);
+					//semへ置換
+					foreach ($content_array as $key)
+					{
+						$str = str_replace("mmm", "sem", $key);
+						$secondcontent[$str] = $content[$key];
+					}
+					//請求ページへ遷移
+					$this->PageJump("SEIKYUINFO_1", $list_id, 1,$newcontent,$secondcontent);
+				
+				}
+				else if($history[$i] == "MITSUMORIINFO_1")
+				{
+					//見積ページへ遷移
+					$this->PageJump("MITSUMORIINFO_1", $list_id, 1,$content,"");
+				}
+			}
+			
+		}
+		
+		//----------請求コピー時----------//
+		if($this->prContainer->pbFileName == "SEIKYUCOPY_9")
+		{
+			//案件コード保持
+			if(isset($this->prContainer->pbInputContent['ANKID']))
+			{
+				$insert_code = $this->prContainer->pbInputContent['ANKID'];
+			}	
+			
+			if($insert_code != "")
+			{
+				$content['form_sehANKID_0'] = $insert_code;
+			}
+			//指定ページへ遷移
+			$this->PageJump("SEIKYUINFO_1", $list_id, 1,$content,"");
+		}
+		
+		//---------案件流用---------//
+		if($this->prContainer->pbFileName == "ANKENREUSE_9")
+		{
+			//参考案件
+			$content['SANKOANKID'] = $list_id;
+			//指定ページへ遷移
+			$this->PageJump("ANKENINFO_1", "", 1, $content,"");
+		}
+	}
+	
+}
+
+/**
+ * 入金処理
+ * 
+ * 
+ */
+class NyukinExecuter extends BaseLogicExecuter
+{
+	
+	/**
+	 * 登録処理
+	 * 
+	 */
+	public function executeSQL()
+	{
+		$judge = false;
+		//抽出ID
+		$listId = $this->prContainer->pbListId;
+		//ステップ
+		$step = $this->prContainer->pbStep;
+		//$filename = $this->prContainer->pbFilename;
+		$update_value = $this->prContainer->pbPageSetting['auto_up_column_value'];
+		$update_value_array = explode(',',$update_value);
+		$value = array();
+		$columns = $this->prContainer->pbPageSetting['sub_page_columns'];
+		$column_Value = $this->prContainer->pbInputContent["form_".$columns."_0"];
+		$ankcode = $this->prContainer->pbInputContent["edit_list_id"];
+		
+		//DB接続、トランザクション開始
+		$con = beginTransaction();
+		
+		//請求テーブルから情報を取得
+		$sql = "select * from seikyuuinfo where SEHID = $listId";
+		
+		$result = $con->query($sql) or ($judge = true);																		// クエリ発行
+		if($judge)
+		{
+			error_log($con->error,0);
+			$judge =false;
+		}
+		while($result_row = $result->fetch_array(MYSQLI_ASSOC))
+		{
+			$kingaku = $result_row['KINGAKUKEI'];	//請求金額
+			$userid = $result_row['USRID'];			//ID
+		}
+		
+		//入金処理
+		for( $i = 0 ; $i < count($update_value_array) ; $i++)
+		{
+			$pos = strpos($update_value_array[$i],'@');
+			if( $pos == false )
+			{
+				$value[$i] = $update_value_array[$i];
+			}
+			else
+			{
+				$outvalue = "";
+				//スコープ指定
+				$scope = substr($update_value_array[$i],$pos+1);
+				$scope = str_replace ( "'", "", $scope );
+				$valname =  substr($update_value_array[$i],0,$pos);
+				$valname = str_replace ( "'", "", $valname );
+				
+				if( $scope == "session" )
+				{
+					$outvalue = $_SESSION[$valname];
+				}
+				$outvalue = str_replace ( $valname."@".$scope, $outvalue, $update_value_array[$i] );
+
+				$value[$i] = $outvalue;
+			}
+			
+		}
+		
+		if($step == STEP_DELETE)
+		{	
+			$sql = "DELETE FROM nyuukininfo WHERE SEHID = '$listId';" ;
+		}
+		else
+		{
+			$sql = "insert into nyuukininfo (SEHID,NYUKINBI,NYUKINGAKU,USRID,UPDATETIME,UPDATEUSER) ";
+			$sql .= "VALUES($listId,'$column_Value',$kingaku,$userid,$value[0],$value[1])" ;
+		}	
+		$result = $con->query($sql) or ($judge = true);																		// クエリ発行
+		if($judge)
+		{
+			error_log($con->error,0);
+			$judge =false;
+		}
+		////////////////////操作履歴///////////////////////
+		//$result = addSousarireki($this->prContainer->pbFilename, STEP_INSERT, $insertsql, $con);
+		addSousarireki($this->prContainer->pbFilename, $step, $sql, $con);
+		////////////////////操作履歴///////////////////////
+		
+		//トランザクションコミットまたはロールバック
+		commitTransaction($result,$con);
+		//指定ページへ遷移
+		$this->PageJump("NYUKIN_1_button", $ankcode, 2, "","");
+	}
+	
+}
+
+/**
+ * 
+ * 見積補足登録
+ */
+class HosokuExecuter extends BaseLogicExecuter
+{
+	/**
+	 * 補足登録処理
+	 * 
+	 */
+	public function executeSQL()
+	{
+		$judge = false;
+		//抽出ID
+		$listId = $this->prContainer->pbListId;
+		//iniファイル読み込み
+		$fieldtype_ini = parse_ini_file('./ini/fieldtype.ini');
+		
+		$tablenum = $this->prContainer->pbPageSetting['sub_use_maintable_num'];
+		$tablename = $this->prContainer->pbFormIni[$tablenum]['table_name'];
+		$columns = $this->prContainer->pbPageSetting['page_columns'];
+		$columns_array = explode(',',$columns);
+		$sub_columns = $this->prContainer->pbPageSetting['sub_page_columns'];
+		$sub_columns_array = explode(',',$sub_columns);
+		$update_columns = $this->prContainer->pbPageSetting['auto_up_column_num'];
+		$update_columns_array = explode(',',$update_columns);
+		$update_value = $this->prContainer->pbPageSetting['auto_ins_column_value'];
+		$update_value_array = explode(',',$update_value);
+		//SQL作成
+		$insertsql = "INSERT INTO ".$tablename." (";
+		
+		// 項目名の構築
+		for($i = 0 ; $i < count($columns_array) ; $i++)
+		{
+			//ページの設定からINSERT項目を読み出し
+			if(isset($this->prContainer->pbFormIni[$columns_array[$i]]['column']) == true)
+			{
+				//フォーマット指定を取得
+				$format = $this->prContainer->pbFormIni[$columns_array[$i]]['form1_format'];
+				
+				//案件コードはスキップ
+				if($this->prContainer->pbFormIni[$columns_array[$i]]['column'] === "ANKID")
+				{
+					continue;
+				}	
+				//列名を取得してつけたし
+				$columnName = $this->prContainer->pbFormIni[$columns_array[$i]]['column'];
+				$insertsql .= $columnName.",";
+			}
+		}
+		//sub_page_columnsの部分
+		for($i = 0 ; $i < count($sub_columns_array) ; $i++)
+		{
+			if(isset($this->prContainer->pbFormIni[$sub_columns_array[$i]]['column']) == true)
+			{
+				//フォーマット指定を取得
+				$format = $this->prContainer->pbFormIni[$sub_columns_array[$i]]['form1_format'];
+				//DBによるAutoIncrement項目は含めない
+				//列名を取得してつけたし
+				$columnName = $this->prContainer->pbFormIni[$sub_columns_array[$i]]['column'];
+				$insertsql .= $columnName.",";
+			}
+		}
+		//自動更新項目
+		if($update_columns != '')
+		{
+			for( $i = 0 ; $i < count($update_columns_array) ; $i++)
+			{
+				//表示項目に含まれているなら処理しない
+				if(in_array( $update_columns_array[$i], $columns_array ) )
+				{
+					continue;
+				}
+				$columnName = $this->prContainer->pbFormIni[$update_columns_array[$i]]['column'];
+				$insertsql .= $columnName.",";
+			}
+		}
+		
+		//項目名末尾の「,」を取る
+		$insertsql = substr($insertsql,0,-1);
+		
+		//ここから値
+		$insertsql .= ")VALUES(";
+		
+		//項目数ループ
+		for($i = 0 ; $i < count($columns_array) ; $i++)
+		{
+			$columnValue = '';
+			//案件コードはスキップ
+			if($this->prContainer->pbFormIni[$columns_array[$i]]['column'] === "ANKID")
+			{
+				continue;
+			}
+			//型を取得
+			if(isset($this->prContainer->pbFormIni[$columns_array[$i]]['form1_type']) == true)
+			{
+				//フォーマット指定を取得
+				$format = $this->prContainer->pbFormIni[$columns_array[$i]]['form1_format'];
+				$formtype = $this->prContainer->pbFormIni[$columns_array[$i]]['form1_type'];
+				$delimiter = "";
+				
+				for($j = 0; $j < 5 ; $j++)
+				{
+					$serch_str = "form_".$columns_array[$i]."_".$j;
+					
+					if(isset($this->prContainer->pbInputContent[$serch_str]))
+					{
+						$columnValue .= $this->prContainer->pbInputContent[$serch_str].$delimiter;
+					}
+				}
+				$columnValue = rtrim($columnValue,$delimiter);
+
+				$fieldtype = $this->prContainer->pbFormIni[$columns_array[$i]]['fieldtype'];
+				$singleQute = $fieldtype_ini[$fieldtype];
+				$insertsql .= $singleQute.$columnValue.$singleQute.",";
+				$columnValue ="";
+			}
+
+		}
+		
+		//sub_page_columnsの部分
+		for($i = 0 ; $i < count($sub_columns_array) ; $i++)
+		{
+			$columnValue = '';
+			//型を取得
+			if(isset($this->prContainer->pbFormIni[$sub_columns_array[$i]]['form1_type']) == true)
+			{
+				//フォーマット指定を取得
+				$format = $this->prContainer->pbFormIni[$sub_columns_array[$i]]['form1_format'];
+				$formtype = $this->prContainer->pbFormIni[$sub_columns_array[$i]]['form1_type'];
+				$delimiter = "";
+				
+				for($j = 0; $j < 5 ; $j++)
+				{
+					$serch_str = "form_".$sub_columns_array[$i]."_".$j;
+					
+					if(isset($this->prContainer->pbInputContent[$serch_str]))
+					{
+						$columnValue .= $this->prContainer->pbInputContent[$serch_str].$delimiter;
+					}
+				}
+				$columnValue = rtrim($columnValue,$delimiter);
+
+				$fieldtype = $this->prContainer->pbFormIni[$sub_columns_array[$i]]['fieldtype'];
+				$singleQute = $fieldtype_ini[$fieldtype];
+				$insertsql .= $singleQute.$columnValue.$singleQute.",";
+				$columnValue ="";
+			}
+		}
+		
+		//自動更新項目
+		if($update_columns != '')
+		{
+			for( $i = 0 ; $i < count($update_value_array) ; $i++)
+			{
+				//指定値
+				$columnValue = getAutoUpdateValue( $update_value_array[$i], "" );
+
+				$insertsql .= $columnValue.",";
+			}
+		}
+		//末尾の「,」を取る
+		$insertsql = substr($insertsql,0,-1);
+
+		// )で閉める
+		$insertsql .= ");";
+		
+		//DB接続、トランザクション開始
+		$con = beginTransaction();
+		
+		$result = $con->query($insertsql) or ($judge = true);			// クエリ発行
+		if($judge)
+		{
+			error_log($con->error,0);
+			$judge =false;
+		}
+		////////////////////操作履歴///////////////////////
+		addSousarireki($this->prContainer->pbFilename, STEP_INSERT, $insertsql, $con);
+		////////////////////操作履歴///////////////////////
+		
+		//トランザクションコミットまたはロールバック
+		commitTransaction($result,$con);
+		
+		//ページ遷移
+		$this->PageJump($this->prContainer->pbFileName, $listId, '2', "","");
+		
+	}
+	
+}
+
+class DeleteHosokuExecuter extends BaseLogicExecuter
+{
+	/**
+	 * 補足削除処理
+	 * 
+	 */
+	public function executeSQL()
+	{
+		$judge = false;
+		//抽出ID
+		$listId = $this->prContainer->pbListId;
+		$step = $this->prContainer->pbStep;
+		$use_main = $this->prContainer->pbPageSetting['use_maintable_num'];
+		$value = loadDBRecord("mmf",$listId);
+		
+		
+		//DB接続、トランザクション開始
+		$con = beginTransaction();
+		$sql = "DELETE FROM mitsumorihosokuinfo WHERE MMFID = '$listId';";
+		$result = $con->query($sql) or ($judge = true);																		// クエリ発行
+		if($judge)
+		{
+			error_log($con->error,0);
+			$judge =false;
+		}
+		
+		if($result == true)
+		{
+			$deletefile = mb_convert_encoding($value['FILE'], "SJIS", "AUTO");
+			$result = unlink('./file/'.$deletefile);
+		}	
+
+		////////////////////操作履歴///////////////////////
+		//$result = addSousarireki($this->prContainer->pbFilename, STEP_INSERT, $insertsql, $con);
+		addSousarireki($this->prContainer->pbFileName, $step, $sql, $con);
+		////////////////////操作履歴///////////////////////
+		
+		//トランザクションコミットまたはロールバック
+		commitTransaction($result,$con);
+		
+		//ページ遷移
+		$this->PageJump($this->prContainer->pbFileName, $this->prContainer->pbInputContent['form_'.$use_main.'ANKID_0'], '2', "","");
+	}
+	
+	
+	
+}

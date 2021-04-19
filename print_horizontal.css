@@ -1,0 +1,32 @@
+/*印刷用css START*/
+
+#print{display:none;}
+
+body{
+    background-color: #FFF;
+}
+div.printpage {
+	width: 296mm;
+	height: 190mm;
+	border: none;
+	margin:0px auto;
+}
+
+table.list,table.mail,table.label
+{
+	border: 2px #000000 solid;
+	border-collapse: collapse;
+	width: auto;
+	margin: auto;
+}
+
+/*firefoxのみ適用　START*/
+@-moz-document url-prefix() {
+
+	#print{display:none;}
+	body{
+		background-color: #FFF;
+	}
+}
+/*firefoxのみ適用 END*/
+	

@@ -1,0 +1,58 @@
+
+/*印刷時A4サイズ*/
+div.printpage {
+	width: 320mm;
+	height: 210mm; /* */
+	/*width: 172mm;
+	height: 251mm;/**/
+	border: solid 1px black;		/*ボックス線 消す予定*/
+	margin:0px auto;
+			background-color: #FFF;
+}
+
+/*見積書*/
+h2{
+	text-align: center;			/*文字位置*/
+	font-weight:bold;
+	font-size:40px;
+	letter-spacing: 15px;
+}
+
+table.list,table.mail,table.label
+{
+	border: 2px #000000 solid;
+	border-collapse: collapse;
+	width: auto;
+	margin: auto;
+}
+
+div.title{
+	/*height: 250px;/**/
+	height: 170px;
+	text-align: center;				/*文字位置*/
+	/*border: solid 1px black;		/*ボックス線 消す予定*/
+	position:relative;				/*位置指定*/
+	top:-30px;
+}
+
+/****/
+ tr.color{
+	background-color: #C0C0C0;
+}
+td.color{
+	background-color: #C0C0C0;
+}
+
+/*--------------------------------------------------------------*/
+/*IEのみ適用 START*/
+@media all and (-ms-high-contrast:none) {
+	
+   div.title{
+		height: 170px;
+		text-align: center;				/*文字位置*/
+		/*border: solid 1px black;                      /*ボックス線 消す予定*/
+		position:relative;				/*位置指定*/
+		top:-10px;
+	}
+}
+/*IEのみ適用 END*/	
