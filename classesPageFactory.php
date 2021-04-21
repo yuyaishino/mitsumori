@@ -293,6 +293,11 @@ class PageFactory
 		{
 			$executer = new CopyExecuter($container);
 		}
+                
+                if($filename == 'MITSUMORIPRINT_5')
+                {
+                        $executer = new MitsumoriInfoExecuter($container);
+                }
 		return $executer;
 	}		
 }

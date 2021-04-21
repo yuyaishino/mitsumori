@@ -202,7 +202,7 @@ error_reporting(E_ALL);
 					$_SESSION['filename'] = 'SEIKYUPRINT_5';
 				}
 				//$_SESSION['step'] = 5;
-				$step = STEP_PRINT;
+				$step = STEP_EDIT;
 			}
 			else if($key == 'Comp')//データ処理
 			{

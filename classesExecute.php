@@ -339,6 +339,13 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
 				$filename = "ANKENSHOW_1";
 				$step = 2;
 				$id = $this->prContainer->pbInputContent['form_mmhANKID_0'];
+                                
+                                if($_SESSION['filename'] === "MITSUMORIPRINT_5")
+                                {
+                                        $filename = "MITSUMORIPRINT_5";
+					$step = 5;
+					$id = STEP_NONE;
+                                }
 				break;
 			}	
 			//請求登録,更新時
