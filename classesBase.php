@@ -1797,7 +1797,8 @@ class BasePage extends BaseObject
 					$href = '';
 					if( $type === '2' )
 					{  
-                                                $value = mb_convert_encoding($value, "UTF-8", "auto");
+                                                //$value = mb_convert_encoding($value, "UTF-8", "auto");
+                                                //$value = mb_convert_encoding($value, "SJIS", "UTF-8");
 						$href = 'file/'.$value;
 					}
 					else
@@ -1810,10 +1811,14 @@ class BasePage extends BaseObject
 					
 					//パラメータ追加
 					$href .= $this->makeGetAdditionalListParam($column);
+					if( $type === '2' ){
+                                            $value = "<a href='download.php?filename=".$value."'>".$value."</a>";
+                                        }else{
+                                            //リンクありの場合、値を<a href >で囲む
+                                            $value = "<a charset='utf-8' href='".$href."'>".$value."</a>";
+                                        }
 					
-					//リンクありの場合、値を<a href >で囲む
-					$value = "<a charset='utf-8' href='".$href."'>".$value."</a>";
-					//$value = "<a href='main.php?".$link_to."_button=&form_usr$link_key"."_0=".$result_row[$link_key]."'>".$value."</a>";
+					
 				}
 			}
 
