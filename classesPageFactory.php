@@ -200,6 +200,8 @@ class PageFactory
 		{
 			if($filename === 'MITSUMORIPRINT_5' || $filename === 'SEIKYUPRINT_5')
 			{
+                                $executer = new MitsumoriInfoExecuter($container);
+                                
 				$page = new PrintPage($container);
                         }
 			else if($filename === 'URIAGEPRINT_5')
@@ -294,10 +296,6 @@ class PageFactory
 			$executer = new CopyExecuter($container);
 		}
                 
-                if($filename == 'MITSUMORIPRINT_5')
-                {
-                        $executer = new MitsumoriInfoExecuter($container);
-                }
 		return $executer;
 	}		
 }
