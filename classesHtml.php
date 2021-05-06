@@ -512,7 +512,8 @@ class InsertPage extends BasePage
                                 //<input type="reset" name = "cancel" value = "クリア" class="free" onClick ="isCancel = true;">';
 				if($this->prContainer->pbFileName == 'MITSUMORIINFO_1' || $this->prContainer->pbFileName == 'SEIKYUINFO_1')
 				{	
-					$html .= '<input type="submit" id="print_btn" name = "print" value="印刷" class="free"  >';
+//                                  $html .= '<input type="submit" id="print_btn" name = "print" value="印刷" class="free" data-action="1" >';
+                                    $html .= '<input type="button" id="print_btn" name = "print" value="印刷" class="free" data-action="1" >';
 				}
 				$html .='</div>';
 			}
@@ -827,7 +828,7 @@ class EditPage extends InsertPage
 				if($this->prContainer->pbFileName == 'MITSUMORIINFO_1' || $this->prContainer->pbFileName == 'SEIKYUINFO_1')
 				{	
 //					$html .= '<input type="submit" id="print" name = "print" value="印刷" class="free" onclick="document.getElementByName(\'edit\').action=\'main.php?MITSUMORIPRINT_5_button=\'" >';
-                                        $html .= '<input type="button" id="print_btn" name = "print" value="印刷" class="free" >';
+                                        $html .= '<input type="button" id="print_btn" name = "print" value="印刷" class="free" data-action="2">';
 				}
 
 				$html .='</div>';

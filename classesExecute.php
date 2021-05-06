@@ -345,6 +345,7 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
                                         $filename = "MITSUMORIPRINT_5";
 					$step = 5;
 					$id = STEP_NONE;
+                                        $this->PageJump($filename, $id, $step, $this->prContainer->pbInputContent, "");
                                 }
 				break;
 			}	
@@ -354,6 +355,14 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
 				$filename = "ANKENSHOW_1";
 				$step = 2;
 				$id = $this->prContainer->pbInputContent['form_sehANKID_0'];
+                                
+                                if($_SESSION['filename'] === "SEIKYUPRINT_5")
+                                {
+                                        $filename = "SEIKYUPRINT_5";
+					$step = 5;
+					$id = STEP_NONE;
+                                        $this->PageJump($filename, $id, $step, $this->prContainer->pbInputContent, "");
+                                }
 				break;
 			}
 			//主にマスタ系の処理実行時

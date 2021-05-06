@@ -87,7 +87,35 @@ function submitaction() {
         type: 'hidden',
         name: 'print'
     }).appendTo('.pad');
+    
+    let printcheck = $('#print_btn').attr('data-action');
+    if(printcheck =="1")
+    {
+        var con = confirm("登録せずに印刷画面に遷移しますか？");
+        if(con == true)
+        {
+            var con2 = confirm("入力内容は保存されません。それでもよろしいですか？");
+            if(con2 == false)
+            {
+                return;
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+    else if(printcheck == "2")
+    {
+        $('<input>').attr({
+            type: 'hidden',
+            name: 'updateprint',
+            value: '1'
+        }).appendTo('.pad');
+    } 
+    
     $('form').submit();
+    
 }
 
 function updateAutocomplete(ctrlname, identifier)
