@@ -91,18 +91,12 @@ function submitaction() {
     let printcheck = $('#print_btn').attr('data-action');
     if(printcheck =="1")
     {
-        var con = confirm("登録せずに印刷画面に遷移しますか？");
-        if(con == true)
+        var con = confirm("印刷内容は保存されませんが、印刷しますか？");
+        if(con == false)
         {
-            var con2 = confirm("入力内容は保存されません。それでもよろしいですか？");
-            if(con2 == false)
-            {
-                return;
-            }
-        }
-        else
-        {
-            return;
+            $.removeCookie("back");
+            return false;
+               //exit;
         }
     }
     else if(printcheck == "2")
@@ -115,7 +109,7 @@ function submitaction() {
     } 
     
     $('form').submit();
-    
+    //exit;
 }
 
 function updateAutocomplete(ctrlname, identifier)

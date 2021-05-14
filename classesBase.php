@@ -150,6 +150,7 @@ class BasePage extends BaseObject
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/i18n/jquery.spectrum-ja.min.js"></script>
 			<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 			<!---↑jQuery---!>
 
 			<script src="./generate_date.js"></script>

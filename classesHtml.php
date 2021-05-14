@@ -378,6 +378,7 @@ class InsertPage extends BasePage
 				});
                                 $("#print_btn").on("click", function() {
                                     //印刷ボタン押下時
+                                    $.cookie("back", "戻る", {});
                                     calculateTotal();
                                     saveStorage();
                                     submitaction();
@@ -633,32 +634,40 @@ class InsertCheckPage extends InsertPage
                                     if(judge === 0){
                                         return false;
                                     }
-                                    //ダイアログ作成
-                                    jQuery( "#dialog" ) . dialog( {
-                                    //×ボタン隠す
-                                    open:$(".ui-dialog-titlebar-close").hide(),
-                                    autoOpen: true,
-                                    buttons:
-                                            {
-                                                "ＯＫ": function()
+
+                                    if($.cookie("back") == undefined)
+                                    {
+                                        //ダイアログ作成
+                                        jQuery( "#dialog" ) . dialog( {
+                                        //×ボタン隠す
+                                        open:$(".ui-dialog-titlebar-close").hide(),
+                                        autoOpen: true,
+                                        buttons:
                                                 {
-                                                    // ボタン非活性
-                                                    $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
-                                                    //エレメント作成
-                                                    var ele = document.createElement("input");
-                                                    //データを設定
-                                                    ele.setAttribute("type", "hidden");
-                                                    ele.setAttribute("name", "Comp");
-                                                    ele.setAttribute("value", "");
-                                                    // 要素を追加
-                                                    //document.send.appendChild(ele);
-                                                    $("#send").append(ele);
-                                                    $("#send").submit();//submit処理
-                                                
-                                                },
-                                                "キャンセル": function() {$(this).dialog("close");}
-                                            }
-                                   });
+                                                    "ＯＫ": function()
+                                                    {
+                                                        // ボタン非活性
+                                                        $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
+                                                        //エレメント作成
+                                                        var ele = document.createElement("input");
+                                                        //データを設定
+                                                        ele.setAttribute("type", "hidden");
+                                                        ele.setAttribute("name", "Comp");
+                                                        ele.setAttribute("value", "");
+                                                        // 要素を追加
+                                                        //document.send.appendChild(ele);
+                                                        $("#send").append(ele);
+                                                        $("#send").submit();//submit処理
+
+                                                    },
+                                                    "キャンセル": function() {$(this).dialog("close");}
+                                                }
+                                       });
+                                    }
+                                    else
+                                    {
+                                        $.removeCookie("back");
+                                    }  
                                 });			
 			';
 		$html.= '--></script>';
@@ -1021,34 +1030,42 @@ class EditCheckPage extends EditPage
                                     if(judge === 0){
                                         return false;
                                     }
-                                    //ダイアログ作成
-                                    jQuery( "#dialog" ) . dialog( {
-									//×ボタン隠す
-                                    open:$(".ui-dialog-titlebar-close").hide(),
-                                    autoOpen: true,
-                                    buttons:
-                                            {
-                                                "ＯＫ": function()
+                                    
+                                    if($.cookie("back") == undefined)
+                                    {
+                                        //ダイアログ作成
+                                        jQuery( "#dialog" ) . dialog( {
+                                                                            //×ボタン隠す
+                                        open:$(".ui-dialog-titlebar-close").hide(),
+                                        autoOpen: true,
+                                        buttons:
                                                 {
-                                                    // ボタン非活性
-                                                    $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
-                                                    //エレメント作成
-                                                    var ele = document.createElement("input");
-                                                    //データを設定
-                                                    ele.setAttribute("type", "hidden");
-                                                    ele.setAttribute("name", "Comp");
-                                                    ele.setAttribute("value", "");
-                                                    // 要素を追加
-                                                    //document.send.appendChild(ele);
-                                                    $("#send").append(ele);
-													//submit処理
-                                                    $("#send").submit();
-                                                
-                                                },
-                                                "キャンセル": function() {$(this).dialog("close");}
-                                                
-                                            }
-                                   } );
+                                                    "ＯＫ": function()
+                                                    {
+                                                        // ボタン非活性
+                                                        $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
+                                                        //エレメント作成
+                                                        var ele = document.createElement("input");
+                                                        //データを設定
+                                                        ele.setAttribute("type", "hidden");
+                                                        ele.setAttribute("name", "Comp");
+                                                        ele.setAttribute("value", "");
+                                                        // 要素を追加
+                                                        //document.send.appendChild(ele);
+                                                        $("#send").append(ele);
+                                                                                                            //submit処理
+                                                        $("#send").submit();
+
+                                                    },
+                                                    "キャンセル": function() {$(this).dialog("close");}
+
+                                                }
+                                       } );
+                                    }
+                                    else
+                                    {
+                                        $.removeCookie("back");
+                                    }  
                                 } );
 								
 			';
@@ -2517,41 +2534,48 @@ class KeiriInsertCheck extends KeiriInsert
 				
 		$html .='jQuery (function() 
                                 {
-                                    //ダイアログ作成
-                                    jQuery( "#dialog" ) . dialog( {
-                                    //×ボタン隠す
-                                    open:$(".ui-dialog-titlebar-close").hide(),
-                                    autoOpen: true,
-                                    buttons:
-                                            {
-                                                "ＯＫ": function()
+                                    if($.cookie("back") == undefined)
+                                    {
+                                        //ダイアログ作成
+                                        jQuery( "#dialog" ) . dialog( {
+                                        //×ボタン隠す
+                                        open:$(".ui-dialog-titlebar-close").hide(),
+                                        autoOpen: true,
+                                        buttons:
                                                 {
-                                                    // ボタン非活性
-                                                    $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
-                                                    //エレメント作成
-                                                    var ele = document.createElement("input");
-                                                    //データを設定
-                                                    ele.setAttribute("type", "hidden");
-                                                    ele.setAttribute("name", "Comp");
-                                                    ele.setAttribute("value", "");
-                                                    // 要素を追加
-                                                    //document.send.appendChild(ele);
-                                                    $("#send").append(ele);
-													//submit処理
-                                                    $("#send").submit();
-                                                
-                                                },
-                                                "キャンセル": function() {$(this).dialog("close");}
-                                                
-                                            }
-                                   } );
+                                                    "ＯＫ": function()
+                                                    {
+                                                        // ボタン非活性
+                                                        $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
+                                                        //エレメント作成
+                                                        var ele = document.createElement("input");
+                                                        //データを設定
+                                                        ele.setAttribute("type", "hidden");
+                                                        ele.setAttribute("name", "Comp");
+                                                        ele.setAttribute("value", "");
+                                                        // 要素を追加
+                                                        //document.send.appendChild(ele);
+                                                        $("#send").append(ele);
+                                                                                                            //submit処理
+                                                        $("#send").submit();
+
+                                                    },
+                                                    "キャンセル": function() {$(this).dialog("close");}
+
+                                                }
+                                       } );
+                                    }
+                                    else
+                                    {
+                                        $.removeCookie("back");
+                                    }     
                                 } );
 								
 			';
 		$html.= '--></script>';
 		return $html;
 		
-	}
+        }
 }
 
 /**
