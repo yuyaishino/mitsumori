@@ -929,7 +929,10 @@ class EditCheckPage extends EditPage
 			//hidden作成
 			//$hidden = $this->makeHiddenParam($this->prContainer->pbListId,$this->prContainer->pbStep, $this->prContainer->pbFileName);
 			$hidden = $this->makeHiddenParam($this->prContainer->pbListId,$this->prContainer->pbStep);
-			$send = '<form name ="edit" id="send" action="main.php" method="post" enctype="multipart/form-data" 
+//			$send = '<form name ="edit" id="send" action="main.php" method="post" enctype="multipart/form-data" 
+//					onsubmit = "return check(\''.$checkList.
+//					'\',\''.$notnullcolumns.'\',\''.$notnulltype.'\');">';
+                        $send = '<form name ="edit" id="send" action="main.php?'.$this->prContainer->pbFileName.'" method="post" enctype="multipart/form-data" 
 					onsubmit = "return check(\''.$checkList.
 					'\',\''.$notnullcolumns.'\',\''.$notnulltype.'\');">';
 			$this->prInitScript = $makeDatepicker;//メンバ変数に保存

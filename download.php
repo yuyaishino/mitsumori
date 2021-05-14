@@ -25,8 +25,8 @@
     header('Content-Disposition: attachment; filename='.$name.''); 
     header('Content-Transfer-Encoding: binary');
     header('Content-Length: ' . filesize($fileName));
-    ob_end_clean();
-    ob_clean();
+    //ob_end_clean();
+    //ob_clean();
     readfile($fileName);
     return;
  
