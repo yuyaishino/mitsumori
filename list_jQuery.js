@@ -96,7 +96,6 @@ function submitaction() {
         {
             $.removeCookie("back");
             return false;
-               //exit;
         }
     }
     else if(printcheck == "2")
@@ -109,7 +108,6 @@ function submitaction() {
     } 
     
     $('form').submit();
-    //exit;
 }
 
 function updateAutocomplete(ctrlname, identifier)
