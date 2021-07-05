@@ -116,8 +116,9 @@
 		}
 	?>
 	<br><br>
+        
+        <h2 class="title">見積・請求システム</h2>
 	
-	<br><br>
 	<form action="login.php" method="post">
 	<img src="./image/newMlogo.png" alt="写真" style="width: 15%">
 	<?php
