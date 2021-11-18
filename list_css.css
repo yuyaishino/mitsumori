@@ -622,7 +622,8 @@ div.print
 {
     position: absolute;
 /*    top: 505px;*/
-    top: 20vh;
+/*    top: 20vh;*/
+    top: 110px;
     white-space: nowrap;
 }
 input.print

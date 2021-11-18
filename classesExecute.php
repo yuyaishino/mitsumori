@@ -334,7 +334,7 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
 				break;
 			}
 			//見積登録,更新時
-			if($filearray[0] == "MITSUMORIINFO")
+			if($filearray[0] == "MITSUMORIINFO" || $filearray[0] == "MITSUMORIPRINT")
 			{
 				$filename = "ANKENSHOW_1";
 				$step = 2;
@@ -350,7 +350,7 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
 				break;
 			}	
 			//請求登録,更新時
-			if($filearray[0] == "SEIKYUINFO")
+			if($filearray[0] == "SEIKYUINFO" || $filearray[0] == "SEIKYUPRINT")
 			{
 				$filename = "ANKENSHOW_1";
 				$step = 2;

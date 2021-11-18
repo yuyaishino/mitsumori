@@ -2,11 +2,11 @@
 /*印刷時A4サイズ*/
 	div.printpage,div.printpage2,div.printpage3 {
             width: 210mm;
-            height: 320mm; /* */
+            height: 320mm; 
             /*width: 172mm;
-            height: 251mm;/**/
+            height: 251mm;*/
             border: solid 1px black;		/*ボックス線 消す予定*/
-            margin:0px auto;
+            margin: 0 0 0 210px;
             background-color: #FFF;
             page-break-after: always;
 	}
@@ -98,10 +98,10 @@
 /*            width: 17%;
             margin-top: -1%;
             margin-left: -6%;*/
-            width: 17%;
+            width: 11%;
             position: relative;
-            top: -88%;
-            left: 27%;
+            top: 9%;
+            left: -5%;
         }
 
         /*納品書の印鑑*/

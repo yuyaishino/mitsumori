@@ -294,7 +294,7 @@ class PageFactory
 			$executer = new CopyExecuter($container);
 		}
                 
-                if(($filename == 'MITSUMORIPRINT_5' || $filename == 'SEIKYUPRINT_5') && isset($_SESSION['printupdate']) == 1)
+                if(($filename == 'MITSUMORIPRINT_5' || $filename == 'SEIKYUPRINT_5') && ((isset($_SESSION['printupdate']) == 1) || (isset($_SESSION['printinsert']) == 1)))
                 {
                         $executer = new MitsumoriInfoExecuter($container);
                 }

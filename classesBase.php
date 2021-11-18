@@ -107,8 +107,13 @@ class BasePage extends BaseObject
 		$html .= $this->prTitle;
 		$html .='</title>';
 		$html .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-		$html .='<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
-                        <link rel="icon" type="image/png" href="./image/favicon.ico">
+//		$html .='<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+//                        <link rel="icon" type="image/png" href="./image/favicon.ico">
+//			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+//			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+//			<link rel="stylesheet" href="./jquery.datetimepicker.css">
+//			<link rel="stylesheet" href="./MonthPicker.css">';
+                $html .='<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
 			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
 			<link rel="stylesheet" href="./jquery.datetimepicker.css">
@@ -506,6 +511,7 @@ class BasePage extends BaseObject
 		$result = array();
 		$javascript_str = '';
                 $form_pull_str = '';
+                $form_memo = '';
 		//項目名
 		$form_label_str ='<td class = "space"></td><td class ="one">';/* @var $form_element_str 戻り値?となるフォームHTML文字列 */
 		$form_label_str .= '<a class = "itemname">';
@@ -793,9 +799,23 @@ class BasePage extends BaseObject
 			}
 			$form_element_str .= $form_delimiter.'<input type ="'.$input_type.'" name = "'.$element_name.'" id = "'.$element_id.'" class = "'.$readonly_class.'" value = "'.$form_value.'" size = "'.$form_size.'" '.$readonly_attribute.$required.' '.$onKeyUp.' '.$check_js. ' >';
 			$form_element_str .= $temp_element_str;
+                        
+                        if($colum == "jsySTAMPNAME")
+                        {
+                            $form_memo = "　　承認印用名称として使用";
+                        }
+                        else if($colum == "jsyYAKUSYOKU")
+                        {
+                            $form_memo = "　　作業実績報告書兼確認書に使用";
+                        }
+                        else if($colum == "jsyNAME")
+                        {
+                            $form_memo = "　　作業実績報告書兼確認書に使用";
+                        }
 		}
 
-		$result[0] = $form_label_str.'<td class = "two">'.$form_element_str.$form_pull_str.'</td>';
+		$result[0] = $form_label_str.'<td class = "two">'.$form_element_str.$form_pull_str.$form_memo.'</td>';
+                //$result[0] .= '<td class = "three">' . $form_memo . '</td>';
 		$result[1] = $javascript_str;
 
 		return $result;

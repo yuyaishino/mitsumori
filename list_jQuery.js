@@ -19,6 +19,15 @@ $(document).ready(function () {
             $("#delivelyprint").addClass("dispNone");
         }
     });
+    // 作業実績報告書兼確認書チェックボックス変更時
+    $('#Confirm').change(function () {
+        if ($(this).prop("checked") === true) {
+            $("#printConfirm").removeClass("dispNone");
+
+        } else {
+            $("#printConfirm").addClass("dispNone");
+        }
+    });
 
     // プラスマイナスアイコンクリック時
     $('.icon').click(function () {
@@ -83,19 +92,24 @@ function csvCheck(){
 // 印刷画面遷移
 function submitaction() {
     // $('form').attr('action', 'main.php?MITSUMORIPRINT_5_button=');
-    $('<input>').attr({
-        type: 'hidden',
-        name: 'print'
-    }).appendTo('.pad');
-    
     let printcheck = $('#print_btn').attr('data-action');
     if(printcheck =="1")
     {
-        var con = confirm("印刷内容は保存されませんが、印刷しますか？");
-        if(con == false)
+        var con = confirm("入力内容を登録しますか？\n登録せずに印刷する場合はキャンセルを選択してください。");
+        if(con == true)
         {
-            $.removeCookie("back");
-            return false;
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'insertprint',
+                value: '1'
+            }).appendTo('.pad');
+        }
+        else
+        {
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'print'
+            }).appendTo('.pad');
         }
     }
     else if(printcheck == "2")
