@@ -137,6 +137,7 @@ error_reporting(E_ALL);
                                 $_SESSION['filename'] = $keyarray[0];
 				ajustFilename();	//PRINT_5⇒INFO_1にアジャスト
                                 setcookie("back", "", time() - 10);
+                                break;
 			}
 			else if (strstr($key, 'serch_'))//データ検索時
 			{
