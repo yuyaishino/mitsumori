@@ -601,6 +601,14 @@ function insert($filename, &$post,&$con){
             while($result_row = $unique_result->fetch_array(MYSQLI_ASSOC))
             {
                 $post[strtoupper($tablenum).'ID'] = $result_row[strtoupper($tablenum).'ID'];
+                if($tablenum == 'mmh')
+                {
+                    $_POST['form_mmhMMHID_0'] = $result_row[strtoupper($tablenum).'ID'];
+                }
+                else if($tablenum == 'seh')
+                {
+                    $_POST['form_sehSEHID_0'] = $result_row[strtoupper($tablenum).'ID'];
+                }
                 break;
             }
         }

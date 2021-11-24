@@ -170,6 +170,7 @@ error_reporting(E_ALL);
 				$_GET['step'] = $step;
 				$_SESSION['edit'] = $_GET;
 				ajustFilename();	//PRINT_5⇒INFO_1にアジャスト
+                                break;
 			}
 			else if(strstr($key, 'edit_'))//編集ボタン押し時
 			{

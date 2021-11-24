@@ -340,6 +340,12 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
 				$step = 2;
 				$id = $this->prContainer->pbInputContent['form_mmhANKID_0'];
                                 
+                                if(isset($_GET['Comp']) && $_GET['Comp'] == '1')
+                                {
+                                        $filename = "MITSUMORIINFO_1";
+                                        $id = $_POST['form_mmhMMHID_0'];
+                                }
+                                
                                 if($_SESSION['filename'] === "MITSUMORIPRINT_5")
                                 {
                                         $filename = "MITSUMORIPRINT_5";
@@ -355,6 +361,12 @@ class MitsumoriInfoExecuter extends BaseLogicExecuter
 				$filename = "ANKENSHOW_1";
 				$step = 2;
 				$id = $this->prContainer->pbInputContent['form_sehANKID_0'];
+                                
+                                if(isset($_GET['Comp']) && $_GET['Comp'] == '1')
+                                {
+                                        $filename = "SEIKYUINFO_1";
+                                        $id = $_POST['form_sehSEHID_0'];
+                                }
                                 
                                 if($_SESSION['filename'] === "SEIKYUPRINT_5")
                                 {

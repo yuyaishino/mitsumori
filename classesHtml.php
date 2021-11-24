@@ -503,6 +503,9 @@ class InsertPage extends BasePage
 			$html .= '<div id="dialog" title="入力確認" style="display:none;">
 						<p>この内容でよろしいでしょうか？</p>
 						</div>';
+                        $html .= '<div id="dialog2" title="入力確認" style="display:none;">
+						<p>登録後どちらの画面に移動しますか？</p>
+						</div>';
 			// 読取指定
 			if($this->prContainer->pbPageSetting['form_type'] !== '2')
 			{
@@ -511,11 +514,11 @@ class InsertPage extends BasePage
 				$html .= '<input type="submit" name = "insert" value = "登録" class="free">';
 //                                $html .= '<input type="button" name = "insert" value = "登録" class="free" onClick = submit()>';
                                 //<input type="reset" name = "cancel" value = "クリア" class="free" onClick ="isCancel = true;">';
-				if($this->prContainer->pbFileName == 'MITSUMORIINFO_1' || $this->prContainer->pbFileName == 'SEIKYUINFO_1')
-				{	
-//                                  $html .= '<input type="submit" id="print_btn" name = "print" value="印刷" class="free" data-action="1" >';
-                                    $html .= '<input type="button" id="print_btn" name = "print" value="印刷" class="free" data-action="1" >';
-				}
+//				if($this->prContainer->pbFileName == 'MITSUMORIINFO_1' || $this->prContainer->pbFileName == 'SEIKYUINFO_1')
+//				{	
+////                                  $html .= '<input type="submit" id="print_btn" name = "print" value="印刷" class="free" data-action="1" >';
+//                                    $html .= '<input type="button" id="print_btn" name = "print" value="印刷" class="free" data-action="1" >';
+//				}
 				$html .='</div>';
 			}
 
@@ -1153,13 +1156,14 @@ class DeletePage extends EditCheckPage
 				$data = "";
 			}
 			
-			$checkList = $_SESSION['check_column'];
-			$notnullcolumns = $_SESSION['notnullcolumns'];
-			$notnulltype = $_SESSION['notnulltype'];
 			//$form_array = makeformInsert_setV2($_SESSION['edit'], $out_column, $isReadOnly, "edit",$this->prContainer);
 			$form_array = $this->makeformInsert_setV2($this->prContainer->pbInputContent, $out_column, $isReadOnly, "delete",$this->prContainer);
 			$form = $form_array[0];
 			$makeDatepicker =  $form_array[1];
+                        
+			$checkList = $_SESSION['check_column'];
+			$notnullcolumns = $_SESSION['notnullcolumns'];
+			$notnulltype = $_SESSION['notnulltype'];
 			//--↓明細作成--//
 			$header_array = $this->makeList_itemV2('', $this->prContainer->pbInputContent);
 			if(isset($header_array))
@@ -2548,20 +2552,48 @@ class KeiriInsertCheck extends KeiriInsert
                                                 {
                                                     "ＯＫ": function()
                                                     {
-                                                        // ボタン非活性
-                                                        $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
-                                                        //エレメント作成
-                                                        var ele = document.createElement("input");
-                                                        //データを設定
-                                                        ele.setAttribute("type", "hidden");
-                                                        ele.setAttribute("name", "Comp");
-                                                        ele.setAttribute("value", "");
-                                                        // 要素を追加
-                                                        //document.send.appendChild(ele);
-                                                        $("#send").append(ele);
-                                                                                                            //submit処理
-                                                        $("#send").submit();
-
+                                                        $(this).dialog("close");
+                                                        //ダイアログ作成
+                                                        $( "#dialog2" ) . dialog ({
+                                                            //×ボタン隠す
+                                                            open:$(".ui-dialog-titlebar-close").hide(),
+                                                            autoOpen: true,
+                                                            buttons:
+                                                                    {
+                                                                        "案件画面": function()
+                                                                        {
+                                                                            // ボタン非活性
+                                                                            $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
+                                                                            //エレメント作成
+                                                                            var ele = document.createElement("input");
+                                                                            //データを設定
+                                                                            ele.setAttribute("type", "hidden");
+                                                                            ele.setAttribute("name", "Comp");
+                                                                            ele.setAttribute("value", "");
+                                                                            // 要素を追加
+                                                                            //document.send.appendChild(ele);
+                                                                            $("#send").append(ele);
+                                                                                                                                //submit処理
+                                                                            $("#send").submit();
+                                                                        },
+                                                                        "編集画面": function()
+                                                                        {
+                                                                            // ボタン非活性
+                                                                            $(".ui-dialog-buttonpane button").addClass("ui-state-disabled").attr("disabled", true);
+                                                                            //エレメント作成
+                                                                            var ele = document.createElement("input");
+                                                                            //データを設定
+                                                                            ele.setAttribute("type", "hidden");
+                                                                            ele.setAttribute("name", "Comp");
+                                                                            ele.setAttribute("value", "1");
+                                                                            // 要素を追加
+                                                                            //document.send.appendChild(ele);
+                                                                            $("#send").append(ele);
+                                                                                                                                //submit処理
+                                                                            $("#send").submit();
+                                                                        }
+                                                                    }
+                                                        });
                                                     },
                                                     "キャンセル": function() {$(this).dialog("close");}
 
