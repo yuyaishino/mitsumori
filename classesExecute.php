@@ -1,5 +1,4 @@
 <?php
-
 require_once("classesBase.php");
 /**
  * ビジネスロジック層用のクラス
